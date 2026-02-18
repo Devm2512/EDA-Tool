@@ -19,7 +19,8 @@ def calculate_skew_and_plot_kdeplot(dataframe, column):
 
     # Calculating the kdeplot
     plt.title(f"The distribution of {column}")
-    sns.kdeplot(data = dataframe, x = column)
+    sns.kdeplot(data = dataframe, x = column, color= "green")
+    plt.grid()
     plt.xlabel(f"{column}")
     plt.ylabel("Probability Density")
     plt.show()
@@ -28,8 +29,7 @@ def calculate_skew_and_plot_kdeplot(dataframe, column):
 
 
 
-def outlier_detection(dataframe, column, skew_value, mean, std_dev):   # updating a new parameter call skew_value
-
+def outlier_detection(dataframe, column, skew_value, mean, std_dev):
     
     if skew_value <= 1:
         Lower_Bound = mean - 3 *std_dev
@@ -88,6 +88,7 @@ def numeric_information(dataframe, column):
     mean, std_dev = Describing_numeric_column(dataframe, column)
     skew = calculate_skew_and_plot_kdeplot(dataframe, column)
     outlier_detection(dataframe, column, skew, mean, std_dev)
+    missing_value_calculation(dataframe, column)
 
     return mean, std_dev, skew
 
@@ -125,3 +126,22 @@ def counting_information(dataframe, column):
     print("")
     print("------------------------************************--------------------------------")
     print("")
+
+
+
+# Missing Value calculation
+def missing_value_calculation(dataframe, column):
+
+    null_values = dataframe[column].isna().sum()
+    null_values_percentage = null_values / dataframe[column].shape[0]
+
+    if null_values_percentage == 0.0:
+        print("No Null Values Detected")
+    elif null_values_percentage <= 10.0:
+        print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mImputation \033[0m")
+    elif null_values_percentage <=35.0:
+        print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mImputation Possible\033[0m")
+    else:
+        print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mDrop the Column\033[0m")
+
+    # print(null_values, null_values_percentage)
