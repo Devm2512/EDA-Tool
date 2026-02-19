@@ -90,6 +90,12 @@ def numeric_information(dataframe, column):
     outlier_detection(dataframe, column, skew, mean, std_dev)
     missing_value_calculation(dataframe, column)
 
+    treat_missing_value = input("Do you wish to impute the Missing Values?")
+    if treat_missing_value.lower() == "yes":
+        missing_value_treatment(dataframe, column) 
+    else:
+        print("no missing values imputed") 
+
     return mean, std_dev, skew
 
 
@@ -143,5 +149,33 @@ def missing_value_calculation(dataframe, column):
         print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mImputation Possible\033[0m")
     else:
         print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mDrop the Column\033[0m")
-
     # print(null_values, null_values_percentage)
+
+
+def missing_value_treatment(dataframe, column):
+
+    Imputation_methods = ["Mean","Median","Mode","Constant","Missing_Category"]
+    
+    print("Available Imputation methods are ", Imputation_methods)
+    select_imputation_method = input("Enter the Imputation Method: ")
+    
+    # Mean Imputation
+    if select_imputation_method.lower() == "mean":
+        dataframe[column] = dataframe[column].fillna(dataframe[column].mean())
+    
+    # Median Imputation
+    elif select_imputation_method.lower() == "median":
+        dataframe[column] = dataframe[column].fillna(dataframe[column].median())
+    
+    # Mode imputation
+    elif select_imputation_method.lower() == "mode":
+        dataframe[column] = dataframe[column].fillna(dataframe[column].mode())
+    
+    # Constant Imputation
+    elif select_imputation_method.lower() == "constant":
+        constant = int(input("Enter the constant value for imputation: "))
+        dataframe[column] = dataframe[column].fillna(constant)
+    
+    # Missing Category Imputation
+    elif select_imputation_method.lower() == "missing":
+        dataframe[column] = dataframe[column].fillna("Missing")
