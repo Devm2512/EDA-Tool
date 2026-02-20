@@ -3,6 +3,23 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 
+def basic_info_dataframe(dataframe):
+
+    shape = dataframe.shape
+    column_and_its_information = dataframe.info()
+    
+    sample_number = int(input("Enter the sample count to be viewed"))
+    sample_rows = dataframe.sample(sample_number)
+
+
+    print("The shape of the dataframe is: ", shape)
+    print("The columnwise information about the dataframe is: ", column_and_its_information)
+    print("Sample Rows from the dataframe are: ", sample_rows)
+
+
+    return shape, column_and_its_information, sample_rows
+
+
 
 def calculate_skew_and_plot_kdeplot(dataframe, column):
 
@@ -85,6 +102,7 @@ def Describing_numeric_column(dataframe,column):
 
 def numeric_information(dataframe, column):
 
+    basic_info_dataframe(dataframe)
     mean, std_dev = Describing_numeric_column(dataframe, column)
     skew = calculate_skew_and_plot_kdeplot(dataframe, column)
     outlier_detection(dataframe, column, skew, mean, std_dev)
@@ -162,20 +180,25 @@ def missing_value_treatment(dataframe, column):
     # Mean Imputation
     if select_imputation_method.lower() == "mean":
         dataframe[column] = dataframe[column].fillna(dataframe[column].mean())
+        print("Imputation Complete")
     
     # Median Imputation
     elif select_imputation_method.lower() == "median":
         dataframe[column] = dataframe[column].fillna(dataframe[column].median())
+        print("Imputation Complete")
     
     # Mode imputation
     elif select_imputation_method.lower() == "mode":
         dataframe[column] = dataframe[column].fillna(dataframe[column].mode())
+        print("Imputation Complete")
     
     # Constant Imputation
     elif select_imputation_method.lower() == "constant":
         constant = int(input("Enter the constant value for imputation: "))
         dataframe[column] = dataframe[column].fillna(constant)
+        print("Imputation Complete")
     
     # Missing Category Imputation
     elif select_imputation_method.lower() == "missing":
         dataframe[column] = dataframe[column].fillna("Missing")
+        print("Imputation Complete")
