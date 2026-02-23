@@ -4,41 +4,66 @@ import seaborn as sns
 import pandas as pd
 
 def Describing_numeric_column(dataframe,column):
-    print(column)
     
-    print(f"\033[1mThe Basic Description of the column is\033[0m", dataframe[column].describe())
-    print(f"\033[1mThe Median Value for the column is: \033[0m", dataframe[column].median())
+    try:
+    
+        print(column)
+        
+        print(f"\033[1mThe Basic Description of the column is\033[0m", dataframe[column].describe())
+        print(f"\033[1mThe Median Value for the column is: \033[0m", dataframe[column].median())
 
-    mean = dataframe[column].mean()
-    stad_dev = np.std(dataframe[column])
+        mean = dataframe[column].mean()
+        stad_dev = np.std(dataframe[column])
 
-    return mean, stad_dev
+        return mean, stad_dev
+    
+    except KeyError:
+        print(f"The Mentioned Column {column} does not exist in the Dataframe")
+
+    except Exception as e:
+        print(f"Unexcepted Error Occured: {e}")
+
+    finally:
+        print(f"The Numeric Column Described.")
+
 
 
 def calculate_skew_and_plot_kdeplot(dataframe, column):
 
-    # Computing Skew
-    skew_values = dataframe[column].skew()
-    print(f"\033[1mThe Skew for the column is: \033[0m", skew_values)
+    try:
+        # Computing Skew
+        skew_values = dataframe[column].skew()
+        print(f"\033[1mThe Skew for the column is: \033[0m", skew_values)
 
-    if abs(skew_values) <= 0.5:
-        print("\033[1mAlmost Normal Distribution\033[0m")
+        if abs(skew_values) <= 0.5:
+            print("\033[1mAlmost Normal Distribution\033[0m")
+        
+        elif abs(skew_values) > 0.5 and abs(skew_values) <= 1:
+            print("Moderately Skewed But can be \033[1maccepted as Normal Distrubiton\033[0m")
+        
+        else:
+            print("\033[1mHighly Skewed Distribution\033[0m")
+
+        # Calculating the kdeplot
+        plt.title(f"The distribution of {column}")
+        sns.kdeplot(data = dataframe, x = column, color= "green")
+        plt.grid()
+        plt.xlabel(f"{column}")
+        plt.ylabel("Probability Density")
+        plt.show()
+
+        return skew_values
     
-    elif abs(skew_values) > 0.5 and abs(skew_values) <= 1:
-        print("Moderately Skewed But can be \033[1maccepted as Normal Distrubiton\033[0m")
-    
-    else:
-        print("\033[1mHighly Skewed Distribution\033[0m")
+    except NameError:
+        print(f"The Column {column} Does Not Exist in the DataFrame.")
 
-    # Calculating the kdeplot
-    plt.title(f"The distribution of {column}")
-    sns.kdeplot(data = dataframe, x = column, color= "green")
-    plt.grid()
-    plt.xlabel(f"{column}")
-    plt.ylabel("Probability Density")
-    plt.show()
+    except Exception as e:
+        print(f"Unexpected Error Occured: {e}")
 
-    return skew_values
+    finally:
+        print(f"The Numeric Column Described.")
+
+        
 
 # CENTRAL FUNCTION
 def missing_value_calculation(dataframe, column):
