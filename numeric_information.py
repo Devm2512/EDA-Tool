@@ -68,31 +68,52 @@ def calculate_skew_and_plot_kdeplot(dataframe, column):
 # CENTRAL FUNCTION
 def missing_value_calculation(dataframe, column):
 
-    null_values = dataframe[column].isna().sum()
-    null_values_percentage = null_values / dataframe[column].shape[0]
+    try:
+        null_values = dataframe[column].isna().sum()
+        null_values_percentage = null_values / dataframe[column].shape[0]
 
-    if null_values_percentage == 0.0:
-        print("No Null Values Detected")
-    elif null_values_percentage <= 10.0:
-        print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mImputation \033[0m")
-    elif null_values_percentage <=35.0:
-        print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mImputation Possible\033[0m")
-    else:
-        print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mDrop the Column\033[0m")
+        if null_values_percentage == 0.0:
+            print("No Null Values Detected")
+        elif null_values_percentage <= 10.0:
+            print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mImputation \033[0m")
+        elif null_values_percentage <=35.0:
+            print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mImputation Possible\033[0m")
+        else:
+            print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mDrop the Column\033[0m")
+
+    except NameError:
+        print(f"The Column {column} Does Not Exist in the DataFrame.")
+
+    except Exception as e:
+        print(f"Unexpected Error Occured: {e}")
+
+    finally:
+        print(f"The Numeric Column Described.")
+    
     # print(null_values, null_values_percentage)
 
 
 def whether_to_impute_missing_values(dataframe, column):
 
-    if dataframe[column].isna().sum() >= 1:
-        treat_missing_value = input("Do you wish to impute the Missing Values?")
-        if treat_missing_value.lower() == "yes":
-            missing_value_treatment(dataframe, column) 
-            print("Missing Values Imputed")
+    try:
+        if dataframe[column].isna().sum() >= 1:
+            treat_missing_value = input("Do you wish to impute the Missing Values?")
+            if treat_missing_value.lower() == "yes":
+                missing_value_treatment(dataframe, column) 
+                print("Missing Values Imputed")
+            else:
+                print("Missing Values Not Imputed")
         else:
-            print("Missing Values Not Imputed")
-    else:
-        print("No missing Values Found")
+            print("No missing Values Found")
+
+    except NameError:
+        print(f"The Column {column} Does Not Exist in the DataFrame.")
+
+    except Exception as e:
+        print(f"Unexpected Error Occured: {e}")
+
+    finally:
+        print(f"The Numeric Column Described.")
 
 
 # CENTRAL FUNCTION --> add a check to identify whether the column is categorical or numeric and then provide the corresponsing missing value imputatio methods
