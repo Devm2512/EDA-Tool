@@ -1,28 +1,18 @@
 import pandas as pd
-from eda_utils import numeric_information,counting_information
+from menu import Menu
 
-dataframe = pd.read_csv("Enter the path of your CSV File Here")
-print("The available columns are: ", dataframe.columns)
 
-column = input("Enter the column name from the above list: ")
+def data_reading():
 
-def statistics_for_each_columns(dataframe, column):
+    dataframe = pd.read_csv("C:/Users/dewan/Downloads/data_science/EDA Project/df_selected_cols.csv")
 
-    datatype = ["int32", "int64", "float32", "float64"]
-    
-    # for i in dataframe.columns:
+    return dataframe
 
-    if dataframe[column].dtype in datatype:
-        numeric_information(dataframe, column)
-        print("")
-        print("----------------------------------****************************************------------------------------------------")
-        print("")
-    else:
-        counting_information(dataframe,column)
-        print("")
-        print("----------------------------------****************************************------------------------------------------")
-        print("")
-            
 
 if __name__ == "__main__":
-    statistics_for_each_columns(dataframe, column)
+
+    dataframe = data_reading()
+
+    menu = Menu(dataframe)
+
+    menu.start()
