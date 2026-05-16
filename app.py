@@ -1,26 +1,3 @@
-# import streamlit as st
-# import pandas as pd
-# import numpy as np
-# from eda_utils import basic_info_dataframe
-# from main import data_reading
-
-
-
-
-# st.title("Exploratory Data Analysis Tool")
-
-# st.sidebar.title("Menu")
-
-# L = ["DataFrame", "Columns"]
-
-# menu_option = st.sidebar.selectbox("", L)
-
-# if menu_option == "DataFrame":
-
-#     dataframe = data_reading()
-#     shape, column_and_its_information, sample_rows = basic_info_dataframe(dataframe)
-
-
 import streamlit as st
 import pandas as pd
 import numpy as np
