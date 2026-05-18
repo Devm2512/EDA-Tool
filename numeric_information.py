@@ -70,50 +70,46 @@ def missing_value_calculation(dataframe, column):
 
     try:
         null_values = dataframe[column].isna().sum()
-        null_values_percentage = null_values / dataframe[column].shape[0]
+        null_values_percentage = round((null_values / dataframe[column].shape[0])*100,2)
 
         if null_values_percentage == 0.0:
-            print("No Null Values Detected")
+            Message = "No Null Values Detected"
         elif null_values_percentage <= 10.0:
-            print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mImputation \033[0m")
+            Message = f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mImputation \033[0m"
         elif null_values_percentage <=35.0:
-            print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mImputation Possible\033[0m")
+            Message = f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mImputation Possible\033[0m"
         else:
-            print(f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mDrop the Column\033[0m")
+            Message = f"{null_values_percentage} percent null values detected. Suggested Treatment: \033[1mDrop the Column\033[0m"
 
     except NameError:
         print(f"The Column {column} Does Not Exist in the DataFrame.")
-
     except Exception as e:
         print(f"Unexpected Error Occured: {e}")
 
     finally:
         print(f"The Numeric Column Described.")
     
-    # print(null_values, null_values_percentage)
+    return null_values, null_values_percentage, Message
 
 
-def whether_to_impute_missing_values(dataframe, column):
+def whether_to_impute_missing_values(dataframe, column, impute_choice):
 
     try:
         if dataframe[column].isna().sum() >= 1:
-            treat_missing_value = input("Do you wish to impute the Missing Values?")
-            if treat_missing_value.lower() == "yes":
+            if impute_choice == "Yes":
+                # Call your treatment function (make sure it modifies the df or returns it)
                 missing_value_treatment(dataframe, column) 
-                print("Missing Values Imputed")
+                return "Success: Missing Values Imputed!"
             else:
-                print("Missing Values Not Imputed")
+                return "Info: Missing Values Treatment Skipped by User."
         else:
-            print("No missing Values Found")
-
-    except NameError:
-        print(f"The Column {column} Does Not Exist in the DataFrame.")
-
+            return "Info: No Missing Values Found."
+            
+    except KeyError:
+        return f"Error: The Column '{column}' Does Not Exist."
     except Exception as e:
-        print(f"Unexpected Error Occured: {e}")
-
-    finally:
-        print(f"The Numeric Column Described.")
+        return f"Unexpected Error: {e}"
+    
 
 
 # CENTRAL FUNCTION --> add a check to identify whether the column is categorical or numeric and then provide the corresponsing missing value imputatio methods
@@ -166,13 +162,17 @@ def outlier_detection(dataframe, column, skew_value, mean, std_dev):
         print(Lower_Bound, Upper_Bound)
         print("\033[1mTotal Outliers Detected: \033[0m",dataframe[(dataframe[column] < Lower_Bound) | (dataframe[column] > Upper_Bound)].shape[0])
 
+        Q1, Q2, Q3, IQR = 0.0, 0.0, 0.0, 0.0
+        new_df = dataframe[(dataframe[column] >= Lower_Bound) & (dataframe[column] <= Upper_Bound)]
 
-    elif skew_value > 1:
 
+
+    else:
+        
         # Computing the quatiles
-        Q1 = np.quantile(dataframe[column],0.25)
-        Q2 = np.quantile(dataframe[column],0.5)
-        Q3 = np.quantile(dataframe[column],0.75)
+        Q1 = np.nanquantile(dataframe[column],0.25)
+        Q2 = np.nanquantile(dataframe[column],0.5)
+        Q3 = np.nanquantile(dataframe[column],0.75)
 
         IQR = Q3 - Q1
 
@@ -189,5 +189,5 @@ def outlier_detection(dataframe, column, skew_value, mean, std_dev):
         print("\033[1mTotal Outliers Detected: \033[0m",dataframe[dataframe[column] > Upper_Bound].shape[0])
 
 
-    # new_df = dataframe[dataframe[column] < Upper_Bound]
-    # return Q1, Q2, Q3, IQR, Lower_Bound, Upper_Bound, new_df
+        new_df = dataframe[(dataframe[column] >= Lower_Bound) & (dataframe[column] <= Upper_Bound)]
+    return Q1, Q2, Q3, IQR, Lower_Bound, Upper_Bound, new_df
