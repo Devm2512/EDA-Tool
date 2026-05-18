@@ -24,7 +24,7 @@ def basic_info_dataframe(dataframe):
 
 def rec_fuction(dataframe):
 
-    basic_info_dataframe(dataframe)
+    # basic_info_dataframe(dataframe)
     print("The available columns are: ", dataframe.columns)
     column = input("Enter the column name from the above list: ")
 
