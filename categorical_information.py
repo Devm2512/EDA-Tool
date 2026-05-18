@@ -8,10 +8,9 @@ def counting_information(dataframe, column):
     print("\033[1mColumn Name: \033[0m", column)
     print("\033[1mTotal Unique Count: \033[0m",len(dataframe[column].unique()))
     print("\033[1mThe Mode for the Column is: \033[0m", dataframe[column].mode())
-    print("\033[1mUnique Values: \033[0m", dataframe[column].unique())
+    # print("\033[1mUnique Values: \033[0m", dataframe[column].unique())
     print("\033[1mValue Counts: \033[0m",dataframe[column].value_counts())
 
-    
 def plot_countplot(dataframe, column):
     
     if len(dataframe[column].unique()) > 15:
