@@ -76,6 +76,7 @@ elif menu_options == "Columns":
     column = st.selectbox("Select Column", dataframe.columns)
 
     numeric_dtype = ["int64", "float64", "int32","float32"]
+    categorical_dtype = ["object"]
 
     if dataframe[column].dtype in numeric_dtype:
         st.markdown("🔢 Numeric Column")
@@ -167,3 +168,31 @@ elif menu_options == "Columns":
 
         else:
             st.success(f"✅ '{column}' is perfectly clean! No missing values found.")
+
+    elif dataframe[column].dtype in categorical_dtype:
+
+        st.markdown("Categorical Data Type")
+
+        # Basic Description
+
+        st.subheader("Basic Description")
+        unique_count, mode, value_counts = counting_information(dataframe, column)
+
+        c1, c2,c3 = st.columns(3)
+
+        c1.metric("Unqiue Values", f"{unique_count}")
+        c3.metric("Mode", f"{value_counts[0]}")
+        c2.metric("Mode Value", f"{value_counts.index[0]}")
+        st.dataframe(value_counts.to_frame(), use_container_width= True)
+
+        st.markdown("-----------")
+
+
+        # Plotting Countplot
+
+        st.subheader("Distribution of Column")
+        graph = plot_countplot(dataframe, column)
+        if graph:
+            st.pyplot(graph)
+
+
