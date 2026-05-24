@@ -9,14 +9,11 @@ from categorical_information import counting_information, plot_countplot
 def basic_info_dataframe(dataframe):
 
     shape = dataframe.shape
-    print("The shape of the dataframe is: ", shape)
-
     column_and_its_information = dataframe.info()
-    print("The columnwise information about the dataframe is: ", column_and_its_information)
     
     sample_number = int(input("Enter the sample count to be viewed: "))
     sample_rows = dataframe.sample(sample_number)
-    print("Sample Rows from the dataframe are: ", sample_rows)
+
 
 
     return shape, column_and_its_information, sample_rows
@@ -25,7 +22,6 @@ def basic_info_dataframe(dataframe):
 def rec_fuction(dataframe):
 
     # basic_info_dataframe(dataframe)
-    print("The available columns are: ", dataframe.columns)
     column = input("Enter the column name from the above list: ")
 
     return column
@@ -82,8 +78,6 @@ def numeric_information(dataframe, column):
         except ValueError:
 
             print("Please Enter a Valid Number")
-
-            # return mean, std_dev, skew
 
 
 def categorical_information(dataframe, column):
