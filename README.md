@@ -30,7 +30,7 @@ main.py  ───────────────────────�
    ├──► menu.py  ──► eda_utils.py  ──► numeric_information.py
    │    (Terminal)                  └──► categorical_information.py
    │
-   └──► app1.py  ──────────────────► numeric_information.py
+   └──► app.py  ──────────────────► numeric_information.py
         (Streamlit)              └──► categorical_information.py
 ```
 
@@ -60,7 +60,7 @@ python main.py
 
 ---
 
-## 🌐 Streamlit App — Features (`app1.py`)
+## 🌐 Streamlit App — Features (`app.py`)
 
 ### File Upload
 - Upload any `.csv` file directly from your desktop via the file uploader
