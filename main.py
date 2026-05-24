@@ -1,5 +1,4 @@
 import pandas as pd
-from menu import Menu
 
 
 def data_reading(file = None):
