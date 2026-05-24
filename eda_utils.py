@@ -27,20 +27,6 @@ def rec_fuction(dataframe):
     return column
 
 
-def numeric_information_selection(dataframe, column):
-
-    dict = {1 : "basic_info_dataframe", 2:"Describing_numeric_column",3:"calculate_skew_and_plot_kdeplot",4: "outlier_detection",
-            5: "missing_value_calculation", 6: "whether_to_impute_missing_values"}
-    
-    Enter_Operation = int(input("""Press 1 for basic_info_dataframe
-                            Press 2 for Describing_numeric_column
-                            Press 3 for calculate_skew_and_plot_kdeplot
-                            Press 4 for outlier_detection
-                            Press 5 for missing_value_calculation
-                            Press 6 for whether_to_impute_missing_values
-                            """))
-    return Enter_Operation
-
 def numeric_information(dataframe, column):
 
     while True:
