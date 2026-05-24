@@ -49,7 +49,7 @@ pip install pandas numpy matplotlib seaborn streamlit
 ### Running the Streamlit App
 
 ```bash
-streamlit run app1.py
+streamlit run app.py
 ```
 
 ### Running the Terminal Version
