@@ -156,6 +156,7 @@ def outlier_detection(dataframe, column, skew_value, mean, std_dev):
 
         Q1, Q2, Q3, IQR = 0.0, 0.0, 0.0, 0.0
         new_df = dataframe[(dataframe[column] >= Lower_Bound) & (dataframe[column] <= Upper_Bound)]
+        return 0.0, 0.0, 0.0, 0.0, Lower_Bound, Upper_Bound, new_df
 
 
 
