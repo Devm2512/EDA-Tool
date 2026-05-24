@@ -17,7 +17,3 @@ def data_reading(file = None):
 if __name__ == "__main__":
 
     dataframe = data_reading()
-
-    menu = Menu(dataframe)
-
-    menu.start()
