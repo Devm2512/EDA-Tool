@@ -130,7 +130,7 @@ For numeric columns, further options include:
 | Function | Description | Returns |
 |---|---|---|
 | `counting_information(df, col)` | Unique count, mode, value counts | Prints to console |
-| `plot_countplot(df, col)` | Bar chart or pie chart based on cardinality | `fig` *(pending fix)* |
+| `plot_countplot(df, col)` | Bar chart or pie chart based on cardinality | Prints to console |
 
 ---
 
