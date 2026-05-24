@@ -4,12 +4,6 @@ import seaborn as sns
 import pandas as pd
 
 def counting_information(dataframe, column):
-    
-    # print("\033[1mColumn Name: \033[0m", column)
-    print("\033[1mTotal Unique Count: \033[0m",len(dataframe[column].unique()))
-    print("\033[1mThe Mode for the Column is: \033[0m", dataframe[column].mode())
-    # print("\033[1mUnique Values: \033[0m", dataframe[column].unique())
-    print("\033[1mValue Counts: \033[0m",dataframe[column].value_counts())
 
     Unique_count = len(dataframe[column].unique())
     Mode = dataframe[column].mode()
@@ -23,7 +17,6 @@ def plot_countplot(dataframe, column):
     unique_count = dataframe[column].unique()
     
     if len(unique_count) > 15:
-        print("Too Many Categories")
         return None
     
     fig,ax = plt.subplots(figsize = (5,3))
@@ -60,7 +53,6 @@ def plot_countplot(dataframe, column):
         ax.set_title(f"Distribution of {column}")
 
     else:
-        print("Not enough Categories to plot")
         return None
     
     plt.tight_layout()
