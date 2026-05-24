@@ -6,12 +6,6 @@ import pandas as pd
 def Describing_numeric_column(dataframe,column):
     
     try:
-    
-        print(column)
-        
-        print(f"\033[1mThe Basic Description of the column is\033[0m", dataframe[column].describe())
-        print(f"\033[1mThe Median Value for the column is: \033[0m", dataframe[column].median())
-
         mean = dataframe[column].mean()
         stad_dev = np.std(dataframe[column])
 
@@ -33,8 +27,6 @@ def calculate_skew_and_plot_kdeplot(dataframe, column):
     try:
         # Computing Skew
         skew_values = dataframe[column].skew()
-        print(f"\033[1mThe Skew for the column is: \033[0m", skew_values)
-
         if abs(skew_values) <= 0.5:
             print("\033[1mAlmost Normal Distribution\033[0m")
         
@@ -176,17 +168,9 @@ def outlier_detection(dataframe, column, skew_value, mean, std_dev):
 
         IQR = Q3 - Q1
 
-        print(f"\033[1mThe Interquartile Range of the {column} is : \033[0m", IQR)
-
-        # computing the lower Bound and Upper Bound
-
         Lower_Bound = Q1 - (1.5 * IQR)
         Upper_Bound = Q3 + (1.5 * IQR)
 
-        print(f"\033[1mThe Lower_Bound of the {column} is : \033[0m", Lower_Bound)
-        print(f"\033[1mThe Upper_Bound of the {column} is : \033[0m", Upper_Bound)
-
-        print("\033[1mTotal Outliers Detected: \033[0m",dataframe[dataframe[column] > Upper_Bound].shape[0])
 
 
         new_df = dataframe[(dataframe[column] >= Lower_Bound) & (dataframe[column] <= Upper_Bound)]
