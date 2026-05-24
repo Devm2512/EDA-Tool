@@ -11,7 +11,7 @@ A Python-based Exploratory Data Analysis tool with two interfaces:
 ```
 EDA Project/
 │
-├── app1.py                    # Streamlit web application
+├── app.py                    # Streamlit web application
 ├── main.py                    # Entry point — data loading
 ├── menu.py                    # Terminal menu interface
 ├── eda_utils.py               # Orchestration layer for terminal flow
