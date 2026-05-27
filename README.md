@@ -13,7 +13,6 @@ EDA Project/
 │
 ├── app.py                    # Streamlit web application
 ├── main.py                    # Entry point — data loading
-├── menu.py                    # Terminal menu interface
 ├── eda_utils.py               # Orchestration layer for terminal flow
 ├── numeric_information.py     # All numeric column analysis functions
 └── categorical_information.py # All categorical column analysis functions
@@ -26,9 +25,8 @@ EDA Project/
 ```
 main.py  ──────────────────────────────►  data_reading()
    │                                        (loads CSV)
-   │
-   ├──► menu.py  ──► eda_utils.py  ──► numeric_information.py
-   │    (Terminal)                  └──► categorical_information.py
+   │  
+   │    
    │
    └──► app.py  ──────────────────► numeric_information.py
         (Streamlit)              └──► categorical_information.py
